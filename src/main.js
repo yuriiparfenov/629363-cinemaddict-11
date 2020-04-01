@@ -93,13 +93,141 @@ const createFooterStatistics = () => {
   );
 };
 
+const createFilmDetails = () => {
+  return (
+    `<section class="film-details visually-hidden">
+      <form class="film-details__inner" action="" method="get"></form>
+    </section>`
+  );
+};
+
+const createFormDetailsTopContainer = () => {
+  return (
+    `<div class="form-details__top-container">
+      <div class="film-details__close">
+        <button class="film-details__close-btn" type="button">close</button>
+      </div>
+    </div>`
+  );
+};
+
+const createFilmDetailsInfoWrap = () => {
+  return (
+    `<div class="film-details__info-wrap"></div>`
+  );
+};
+
+const createFilmDetailsPoster = () => {
+  return (
+    `<div class="film-details__poster">
+      <img class="film-details__poster-img" src="./images/posters/the-great-flamarion.jpg" alt="">
+      <p class="film-details__age">18+</p>
+    </div>`
+  );
+};
+
+const createfilmDetailsInfo = () => {
+  return (
+    `<div class="film-details__info">
+    <div class="film-details__info-head">
+      <div class="film-details__title-wrap">
+        <h3 class="film-details__title">The Great Flamarion</h3>
+        <p class="film-details__title-original">Original: The Great Flamarion</p>
+      </div>
+      <div class="film-details__rating">
+        <p class="film-details__total-rating">8.9</p>
+      </div>
+    </div>
+    <table class="film-details__table">
+      <tr class="film-details__row">
+        <td class="film-details__term">Genres</td>
+        <td class="film-details__cell">
+          <span class="film-details__genre">Drama</span>
+          <span class="film-details__genre">Film-Noir</span>
+          <span class="film-details__genre">Mystery</span></td>
+      </tr>
+    </table>
+    <p class="film-details__film-description">
+      The film opens following a murder at a cabaret in Mexico City in 1936, and then presents the events leading up to it in flashback. The Great Flamarion (Erich von Stroheim) is an arrogant, friendless, and misogynous marksman who displays his trick gunshot act in the vaudeville circuit. His show features a beautiful assistant, Connie (Mary Beth Hughes) and her drunken husband Al (Dan Duryea), Flamarion's other assistant. Flamarion falls in love with Connie, the movie's femme fatale, and is soon manipulated by her into killing her no good husband during one of their acts.
+    </p>
+  </div>`
+  );
+};
+
+const createFilmDetailsRow = () => {
+  return (
+    `<tr class="film-details__row">
+      <td class="film-details__term">Director</td>
+      <td class="film-details__cell">Anthony Mann</td>
+    </tr>`
+  );
+};
+
+const createFilmDetailsControl = () => {
+  return (
+    `<section class="film-details__controls">
+      <input type="checkbox" class="film-details__control-input visually-hidden" id="watchlist" name="watchlist">
+      <label for="watchlist" class="film-details__control-label film-details__control-label--watchlist">Add to watchlist</label>
+      <input type="checkbox" class="film-details__control-input visually-hidden" id="watched" name="watched">
+      <label for="watched" class="film-details__control-label film-details__control-label--watched">Already watched</label>
+      <input type="checkbox" class="film-details__control-input visually-hidden" id="favorite" name="favorite">
+      <label for="favorite" class="film-details__control-label film-details__control-label--favorite">Add to favorites</label>
+    </section>`
+  );
+};
+
+const createFormDetailsBottomContainer = () => {
+  return (
+    `<div class="form-details__bottom-container">
+      <section class="film-details__comments-wrap">
+        <h3 class="film-details__comments-title">Comments <span class="film-details__comments-count">4</span></h3>
+        <ul class="film-details__comments-list"></ul>
+        <div class="film-details__new-comment">
+          <div for="add-emoji" class="film-details__add-emoji-label"></div>
+          <label class="film-details__comment-label">
+            <textarea class="film-details__comment-input" placeholder="Select reaction below and write comment here" name="comment"></textarea>
+          </label>
+          <div class="film-details__emoji-list"></div>
+        </div>
+      </section>
+    </div>`
+  );
+};
+
+const createFilmDetailsComment = () => {
+  return (
+    `<li class="film-details__comment">
+      <span class="film-details__comment-emoji">
+        <img src="./images/emoji/smile.png" width="55" height="55" alt="emoji-smile">
+      </span>
+      <div>
+        <p class="film-details__comment-text">Interesting setting and a good cast</p>
+        <p class="film-details__comment-info">
+          <span class="film-details__comment-author">Tim Macoveev</span>
+          <span class="film-details__comment-day">2019/12/31 23:59</span>
+          <button class="film-details__comment-delete">Delete</button>
+        </p>
+      </div>
+    </li>`
+  );
+};
+
+const createFilmDetailsEmojiLabel = () => {
+  return (
+    `<input class="film-details__emoji-item visually-hidden" name="comment-emoji" type="radio" id="emoji-smile" value="smile">
+      <label class="film-details__emoji-label" for="emoji-smile">
+        <img src="./images/emoji/smile.png" width="30" height="30" alt="emoji">
+      </label>`
+  );
+};
+
 const render = (container, template, place = `beforeend`) => {
   container.insertAdjacentHTML(place, template);
 };
 
-const renderRepeatedly = (element, createElementFunction, n) => {
+const renderRepeatedly = (element, createElementFunction, n, place = `beforeend`) => {
   for (let i = 0; i < n; i++) {
-    render(element, createElementFunction());
+    render(element, createElementFunction(), place);
   }
 };
 
@@ -116,20 +244,48 @@ const filmsElement = mainElement.querySelector(`.films`);
 render(filmsElement, createFilmsListElement());
 
 const filmsListElement = filmsElement.querySelector(`.films-list`);
-const fimsListContainerElement = filmsListElement.querySelector(`.films-list__container`);
+const filmsListContainerElement = filmsListElement.querySelector(`.films-list__container`);
 
-renderRepeatedly(fimsListContainerElement, createFilmCardElement, N_REPEAT);
+renderRepeatedly(filmsListContainerElement, createFilmCardElement, N_REPEAT);
 
-render(fimsListContainerElement, createButtonFilmsShowMore(), `afterend`);
+render(filmsListContainerElement, createButtonFilmsShowMore(), `afterend`);
 
 renderRepeatedly(filmsElement, createFilmsListExtraElement, DOUBLE_REPEAT);
 
 const filmsListExtraElement = filmsElement.querySelectorAll(`.films-list--extra`);
 
 filmsListExtraElement.forEach((element) => {
-  let fimsListExtraContainerElement = element.querySelector(`.films-list__container`);
-  renderRepeatedly(fimsListExtraContainerElement, createFilmCardElement, DOUBLE_REPEAT);
+  let filmsListExtraContainerElement = element.querySelector(`.films-list__container`);
+  renderRepeatedly(filmsListExtraContainerElement, createFilmCardElement, DOUBLE_REPEAT);
 });
 
-const footerStatisticsElement = document.querySelector(`.footer__statistics`);
+const footerElement = document.querySelector(`.footer`);
+const footerStatisticsElement = footerElement.querySelector(`.footer__statistics`);
 render(footerStatisticsElement, createFooterStatistics());
+
+render(footerElement, createFilmDetails(), `afterend`);
+
+const formFilmsDetails = document.querySelector(`.film-details__inner`);
+
+render(formFilmsDetails, createFormDetailsTopContainer());
+
+const formDetailsTopContainerElement = formFilmsDetails.querySelector(`.form-details__top-container`);
+render(formDetailsTopContainerElement, createFilmDetailsInfoWrap());
+
+const filmDetailsInfoWrapElement = formDetailsTopContainerElement.querySelector(`.film-details__info-wrap`);
+
+render(filmDetailsInfoWrapElement, createFilmDetailsPoster());
+render(filmDetailsInfoWrapElement, createfilmDetailsInfo());
+
+const filmDetailsTableElement = filmDetailsInfoWrapElement.querySelector(`.film-details__table`);
+
+renderRepeatedly(filmDetailsTableElement, createFilmDetailsRow, (DOUBLE_REPEAT * 3), `afterbegin`);
+render(formDetailsTopContainerElement, createFilmDetailsControl());
+render(formFilmsDetails, createFormDetailsBottomContainer());
+
+const filmDetailsCommentsListElement = formFilmsDetails.querySelector(`.film-details__comments-list`);
+
+renderRepeatedly(filmDetailsCommentsListElement, createFilmDetailsComment, (DOUBLE_REPEAT * 2));
+
+const filmDetailsEmojiListElement = formFilmsDetails.querySelector(`.film-details__emoji-list`);
+renderRepeatedly(filmDetailsEmojiListElement, createFilmDetailsEmojiLabel, (DOUBLE_REPEAT * 2));
