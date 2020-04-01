@@ -100,39 +100,36 @@ const render = (container, template, place = `beforeend`) => {
 const renderRepeatedly = (element, createElementFunction, n) => {
   for (let i = 0; i < n; i++) {
     render(element, createElementFunction());
-  };
+  }
 };
 
-const headerElement = document.querySelector('.header');
-const mainElement = document.querySelector('.main');
+const headerElement = document.querySelector(`.header`);
+const mainElement = document.querySelector(`.main`);
 
-render(headerElement,createUserRank());
-render(mainElement,createMainMenu());
-render(mainElement,createSortList());
-render(mainElement,createFilmsElement());
+render(headerElement, createUserRank());
+render(mainElement, createMainMenu());
+render(mainElement, createSortList());
+render(mainElement, createFilmsElement());
 
-const filmsElement = mainElement.querySelector('.films');
+const filmsElement = mainElement.querySelector(`.films`);
 
-render(filmsElement,createFilmsListElement());
+render(filmsElement, createFilmsListElement());
 
-const filmsListElement = filmsElement.querySelector('.films-list')
-const fimsListContainerElement = filmsListElement.querySelector('.films-list__container');
+const filmsListElement = filmsElement.querySelector(`.films-list`);
+const fimsListContainerElement = filmsListElement.querySelector(`.films-list__container`);
 
 renderRepeatedly(fimsListContainerElement, createFilmCardElement, N_REPEAT);
 
 render(fimsListContainerElement, createButtonFilmsShowMore(), `afterend`);
 
-renderRepeatedly(filmsElement,createFilmsListExtraElement, DOUBLE_REPEAT);
+renderRepeatedly(filmsElement, createFilmsListExtraElement, DOUBLE_REPEAT);
 
-const filmsListExtraElement = filmsElement.querySelectorAll('.films-list--extra');
+const filmsListExtraElement = filmsElement.querySelectorAll(`.films-list--extra`);
 
-filmsListExtraElement.forEach(element => {
-  let fimsListExtraContainerElement = element.querySelector('.films-list__container');
-  renderRepeatedly(fimsListExtraContainerElement,createFilmCardElement, DOUBLE_REPEAT);
+filmsListExtraElement.forEach((element) => {
+  let fimsListExtraContainerElement = element.querySelector(`.films-list__container`);
+  renderRepeatedly(fimsListExtraContainerElement, createFilmCardElement, DOUBLE_REPEAT);
 });
 
-const footerStatisticsElement = document.querySelector('.footer__statistics');
-render(footerStatisticsElement,createFooterStatistics());
-
-
-
+const footerStatisticsElement = document.querySelector(`.footer__statistics`);
+render(footerStatisticsElement, createFooterStatistics());
