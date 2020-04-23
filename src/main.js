@@ -11,7 +11,7 @@ import {DOUBLE_REPEAT, N_REPEAT} from './components/constants';
 import {generateQuantityFilms} from './mock/films';
 import {createFilmDetailsElement} from './components/film-details-element';
 import {showUserRank} from './components/user-rank-show';
-import {createStatistics} from './components/statistics';
+
 
 const render = (container, template, place = `beforeend`) => {
   container.insertAdjacentHTML(place, template);
