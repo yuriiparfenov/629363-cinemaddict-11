@@ -1,8 +1,23 @@
-export const createUserRank = () => {
-  return (
-    `<section class="header__profile profile">
-      <p class="profile__rating">Movie Buff</p>
-      <img class="profile__avatar" src="images/bitmap@2x.png" alt="Avatar" width="35" height="35">
-    </section>`
-  );
+export const createUserRank = (array, rank) => {
+
+  const getCountOfWatchFlag = (arr) => {
+    return arr.reduce((accum, elem) => {
+      if (elem.watchlistflag > 0) {
+        accum++;
+      }
+      return accum;
+    }, 0);
+  };
+
+  if (getCountOfWatchFlag(array) === 0) {
+    rank = ``;
+  } else if (getCountOfWatchFlag(array) < 11) {
+    rank = `novice`;
+  } else if (getCountOfWatchFlag(array) > 11 && getCountOfWatchFlag(array) < 21) {
+    rank = `fan`;
+  } else {
+    rank = `movie buff`;
+  }
+
+  return rank;
 };
