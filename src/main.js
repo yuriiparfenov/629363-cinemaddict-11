@@ -7,7 +7,7 @@ import {createFilmsListExtraElement} from './components/film-list-extra-element'
 import {createFilmCardElement} from './components/film-card-element';
 import {createButtonFilmsShowMore} from './components/button-films-show-more';
 import {createFooterStatistics} from './components/footer-statistics';
-import {DOUBLE_REPEAT, N_REPEAT} from './components/constants';
+import {DOUBLE_REPEAT, N_REPEAT, FILMS_COUNT} from './components/constants';
 import {generateQuantityFilms} from './mock/films';
 import {createFilmDetailsElement} from './components/film-details-element';
 import {showUserRank} from './components/user-rank-show';
@@ -26,13 +26,13 @@ const renderRepeatedly = (element, createElementFunction, n, place = `beforeend`
 const headerElement = document.querySelector(`.header`);
 const mainElement = document.querySelector(`.main`);
 
-const filmsCount = generateQuantityFilms(N_REPEAT);
+const films = generateQuantityFilms(FILMS_COUNT);
 let firstFilmsShowCount = N_REPEAT;
 
-const userRank = createUserRank(filmsCount);
+const userRank = createUserRank(films);
 
 render(headerElement, showUserRank(userRank));
-render(mainElement, createMainMenu(filmsCount));
+render(mainElement, createMainMenu(films));
 render(mainElement, createSortList());
 render(mainElement, createFilmsElement());
 
@@ -44,7 +44,7 @@ const filmsListElement = filmsElement.querySelector(`.films-list`);
 const filmsListContainerElement = filmsListElement.querySelector(`.films-list__container`);
 
 for (let i = 0; i < firstFilmsShowCount; i++) {
-  render(filmsListContainerElement, createFilmCardElement(filmsCount[i]));
+  render(filmsListContainerElement, createFilmCardElement(films[i]));
 }
 
 render(filmsListContainerElement, createButtonFilmsShowMore(), `afterend`);
@@ -56,7 +56,7 @@ const filmsListExtraElement = filmsElement.querySelectorAll(`.films-list--extra`
 filmsListExtraElement.forEach((element) => {
   let filmsListExtraContainerElement = element.querySelector(`.films-list__container`);
   for (let i = 0; i < DOUBLE_REPEAT; i++) {
-    render(filmsListExtraContainerElement, createFilmCardElement(filmsCount[i]));
+    render(filmsListExtraContainerElement, createFilmCardElement(films[i]));
   }
 });
 
@@ -64,17 +64,18 @@ const footerElement = document.querySelector(`.footer`);
 const footerStatisticsElement = footerElement.querySelector(`.footer__statistics`);
 render(footerStatisticsElement, createFooterStatistics());
 
-render(footerElement, createFilmDetailsElement(filmsCount[0]), `afterend`);
+render(footerElement, createFilmDetailsElement(films[0]), `afterend`);
 
 const showButton = filmsListElement.querySelector(`.films-list__show-more`);
 showButton.addEventListener(`click`, () => {
+  const prevFilmsCount = firstFilmsShowCount;
   firstFilmsShowCount = firstFilmsShowCount + N_REPEAT;
 
-  filmsCount.slice().forEach((film) => {
+  films.slice(prevFilmsCount, firstFilmsShowCount).forEach((film) => {
     render(filmsListContainerElement, createFilmCardElement(film));
   });
 
-  if (firstFilmsShowCount >= filmsCount.length) {
+  if (firstFilmsShowCount >= films.length) {
     showButton.remove();
   }
 });

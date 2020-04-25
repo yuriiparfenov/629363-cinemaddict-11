@@ -1,4 +1,5 @@
 const DOUBLE_REPEAT = 2;
 const N_REPEAT = 5;
+const FILMS_COUNT = 22;
 
-export {DOUBLE_REPEAT, N_REPEAT};
+export {DOUBLE_REPEAT, N_REPEAT, FILMS_COUNT};
