@@ -1,4 +1,6 @@
-export const createStatistics = (rank) => {
+import {createElement} from '../components/utils';
+
+const createStatistics = (rank) => {
   return (
     `<section class="statistic">
       <p class="statistic__rank">
@@ -48,3 +50,28 @@ export const createStatistics = (rank) => {
     </section>`
   );
 };
+
+export default class Statistics {
+  constructor(rank) {
+    this._rank = rank;
+    this._element = null;
+  }
+
+  getTemplate() {
+    return createStatistics(this._rank);
+  }
+
+  getElement() {
+    if (!this._element) {
+      this._element = createElement(this.getTemplate());
+    }
+
+    return this._element;
+  }
+
+  removeElement() {
+    this._element = null;
+  }
+
+
+}

@@ -1,4 +1,6 @@
-export const createFilmDetailsElement = (film) => {
+import {createElement} from '../components/utils';
+
+const createFilmDetailsElement = (film) => {
   const {title, rating, duration, img, director, writers, actors, date, country, description, genres, watchlistflag, hystoryflag, favoriteflag} = film;
 
   const arrayOfGenres = genres();
@@ -10,7 +12,7 @@ export const createFilmDetailsElement = (film) => {
   };
 
   return (
-    `<section class="film-details visually-hidden">
+    `<section class="film-details">
       <form class="film-details__inner" action="" method="get">
       <div class="form-details__top-container">
         <div class="film-details__close">
@@ -179,3 +181,29 @@ export const createFilmDetailsElement = (film) => {
   </section>`
   );
 };
+
+
+export default class FilmDetailsElement {
+  constructor(film) {
+    this._film = film;
+    this._element = null;
+  }
+
+  getTemplate() {
+    return createFilmDetailsElement(this._film);
+  }
+
+  getElement() {
+    if (!this._element) {
+      this._element = createElement(this.getTemplate());
+    }
+
+    return this._element;
+  }
+
+  removeElement() {
+    this._element = null;
+  }
+
+
+}
