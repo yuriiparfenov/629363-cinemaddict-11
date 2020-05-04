@@ -35,13 +35,24 @@ const renderFilm = (filmListElement, film) => {
   const filmComponent = new FilmCardElement(film);
   render(filmListElement, filmComponent.getElement(), RenderPosition.BEFOREEND);
 
+  const onEscClose = (evt) => {
+    const isEscKey = evt.key === `Escape` || evt.key === `Esc`;
+
+    if (isEscKey) {
+      filmListElement.removeChild(popUp);
+    };
+  };
+
   filmComponent.getElement().addEventListener(`click`, (evt) => {
     evt.preventDefault();
     filmListElement.appendChild(popUp);
+    document.addEventListener(`keydown`, onEscClose);
   });
 
   popUp.querySelector(`.film-details__close-btn`).addEventListener(`click`, () => {
     filmListElement.removeChild(popUp);
+
+
   });
 
 };
