@@ -40,7 +40,7 @@ const renderFilm = (filmListElement, film) => {
 
     if (isEscKey) {
       filmListElement.removeChild(popUp);
-    };
+    }
   };
 
   filmComponent.getElement().addEventListener(`click`, (evt) => {
