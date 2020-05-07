@@ -30,7 +30,7 @@ const generateFilm = () => {
     description() {
       return descriptions.slice(0, getRandomNumber(descriptions.length, 1)).join(` `);
     },
-    comments: `0000${getRandomNumber(5)} comments`,
+    comments: `0000${getRandomNumber(9)}`,
     director: getRandomArrayItem(directors, 1),
     writers() {
       const count = getRandomNumber(writers.length, 1);

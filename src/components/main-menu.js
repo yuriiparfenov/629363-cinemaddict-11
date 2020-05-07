@@ -1,4 +1,6 @@
-export const createMainMenu = (array) => {
+import {createElement} from '../components/utils';
+
+const createMainMenu = (array) => {
 
   const getCountOfWatchFlag = (arr) => {
     return arr.reduce((accum, elem) => {
@@ -40,3 +42,28 @@ export const createMainMenu = (array) => {
     </nav>`
   );
 };
+
+export default class MainMenu {
+  constructor(array) {
+    this._array = array;
+    this._element = null;
+  }
+
+  getTemplate() {
+    return createMainMenu(this._array);
+  }
+
+  getElement() {
+    if (!this._element) {
+      this._element = createElement(this.getTemplate());
+    }
+
+    return this._element;
+  }
+
+  removeElement() {
+    this._element = null;
+  }
+
+
+}
