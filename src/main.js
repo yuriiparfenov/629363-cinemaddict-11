@@ -68,8 +68,6 @@ films.slice(0, firstFilmsShowCount)
     renderFilm(filmsListContainerElement, film);
   });
 
-
-
 const topName = TOP_RATED;
 const mostName = MOST_COMMENTED;
 
@@ -123,9 +121,6 @@ const showButton = new ButtonFilmsShowMore();
 
 render(filmsListContainerElement, showButton.getElement(), RenderPosition.BEFOREEND);
 
-
-
-//const showButton = filmsListElement.querySelector(`.films-list__show-more`);
 showButton.getElement().addEventListener(`click`, () => {
   const prevFilmsCount = firstFilmsShowCount;
   firstFilmsShowCount = firstFilmsShowCount + N_REPEAT;
