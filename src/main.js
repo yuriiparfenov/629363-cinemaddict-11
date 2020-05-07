@@ -68,7 +68,7 @@ films.slice(0, firstFilmsShowCount)
     renderFilm(filmsListContainerElement, film);
   });
 
-render(filmsListContainerElement, new ButtonFilmsShowMore().getElement(), RenderPosition.BEFOREEND);
+
 
 const topName = TOP_RATED;
 const mostName = MOST_COMMENTED;
@@ -119,17 +119,24 @@ const footerElement = document.querySelector(`.footer`);
 const footerStatisticsElement = footerElement.querySelector(`.footer__statistics`);
 render(footerStatisticsElement, createFooterStatistics());
 
+const showButton = new ButtonFilmsShowMore();
 
-const showButton = filmsListElement.querySelector(`.films-list__show-more`);
-showButton.addEventListener(`click`, () => {
+render(filmsListContainerElement, showButton.getElement(), RenderPosition.BEFOREEND);
+
+
+
+//const showButton = filmsListElement.querySelector(`.films-list__show-more`);
+showButton.getElement().addEventListener(`click`, () => {
   const prevFilmsCount = firstFilmsShowCount;
   firstFilmsShowCount = firstFilmsShowCount + N_REPEAT;
 
   films.slice(prevFilmsCount, firstFilmsShowCount).forEach((film) => {
     renderFilm(filmsListContainerElement, film);
+    render(filmsListContainerElement, showButton.getElement(), RenderPosition.BEFOREEND);
   });
 
   if (firstFilmsShowCount >= films.length) {
-    showButton.remove();
+    showButton.getElement().remove();
+    showButton.removeElement();
   }
 });
