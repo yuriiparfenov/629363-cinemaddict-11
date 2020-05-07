@@ -12,6 +12,7 @@ import {generateQuantityFilms} from './mock/films';
 import FilmDetailsElement from './components/film-details-element';
 import UserRankShow from './components/user-rank-show';
 import {render, RenderPosition} from './components/utils';
+import LackOfFilm from './components/lack-of-film';
 
 const headerElement = document.querySelector(`.header`);
 const mainElement = document.querySelector(`.main`);
@@ -63,10 +64,15 @@ render(filmsElement, new FilmsListElementContainer().getElement(), RenderPositio
 const filmsListElement = filmsElement.querySelector(`.films-list`);
 const filmsListContainerElement = filmsListElement.querySelector(`.films-list__container`);
 
-films.slice(0, firstFilmsShowCount)
+if (films.length !== 0) {
+  films.slice(0, firstFilmsShowCount)
   .forEach((film) => {
     renderFilm(filmsListContainerElement, film);
   });
+} else {
+  render(filmsListElement, new LackOfFilm().getElement(), RenderPosition.BEFOREEND);
+}
+
 
 const topName = TOP_RATED;
 const mostName = MOST_COMMENTED;
