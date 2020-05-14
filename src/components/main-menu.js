@@ -1,4 +1,4 @@
-import {createElement} from '../components/utils';
+import AbstractComponent from './abstract-component';
 
 const createMainMenu = (array) => {
 
@@ -43,27 +43,13 @@ const createMainMenu = (array) => {
   );
 };
 
-export default class MainMenu {
+export default class MainMenu extends AbstractComponent {
   constructor(array) {
+    super();
     this._array = array;
-    this._element = null;
   }
 
   getTemplate() {
     return createMainMenu(this._array);
   }
-
-  getElement() {
-    if (!this._element) {
-      this._element = createElement(this.getTemplate());
-    }
-
-    return this._element;
-  }
-
-  removeElement() {
-    this._element = null;
-  }
-
-
 }

@@ -1,4 +1,4 @@
-import {createElement} from '../components/utils';
+import AbstractComponent from './abstract-component';
 
 const createFilmsListExtraElement = (blockName) => {
   return (
@@ -9,27 +9,14 @@ const createFilmsListExtraElement = (blockName) => {
   );
 };
 
-export default class FilmsListExtraElement {
+export default class FilmsListExtraElement extends AbstractComponent {
   constructor(blockName) {
+    super();
+
     this._blockname = blockName;
-    this._element = null;
   }
 
   getTemplate() {
     return createFilmsListExtraElement(this._blockname);
   }
-
-  getElement() {
-    if (!this._element) {
-      this._element = createElement(this.getTemplate());
-    }
-
-    return this._element;
-  }
-
-  removeElement() {
-    this._element = null;
-  }
-
-
 }
