@@ -39,12 +39,12 @@ const renderFilm = (filmListElement, film) => {
 };
 
 const renderBoardFilms = (boardComponent, films) => {
-  render(boardComponent, new FilmsListElementContainer(), RenderPosition.BEFOREEND);
 
-  const filmsListElement = boardComponent.getElement().querySelector(`.films-list`);
+  const boardElement = boardComponent.getElement();
+  render(boardElement, new FilmsListElementContainer(), RenderPosition.BEFOREEND);
+
+  const filmsListElement = boardElement.querySelector(`.films-list`);
   const filmsListContainerElement = filmsListElement.querySelector(`.films-list__container`);
-  const topName = TOP_RATED;
-  const mostName = MOST_COMMENTED;
 
   if (films.length !== 0) {
     films.slice(0, firstFilmsShowCount)
@@ -52,27 +52,19 @@ const renderBoardFilms = (boardComponent, films) => {
       renderFilm(filmsListContainerElement, film);
     });
 
-    render(boardComponent, new FilmsListExtraElement(topName), RenderPosition.BEFOREEND);
-    render(boardComponent, new FilmsListExtraElement(mostName), RenderPosition.BEFOREEND);
+    render(boardElement, new FilmsListExtraElement(TOP_RATED), RenderPosition.BEFOREEND);
+    render(boardElement, new FilmsListExtraElement(MOST_COMMENTED), RenderPosition.BEFOREEND);
 
   } else {
     render(filmsListElement, new LackOfFilm(), RenderPosition.BEFOREEND);
   }
 
-  const filmsListExtElement = boardComponent.getElement().querySelectorAll(`.films-list--extra`);
+  const filmsListExtElement = boardElement.querySelectorAll(`.films-list--extra`);
 
 
   let beforeSortFilms = films;
   let filmsListExtraContainerElement = filmsListExtElement[0].querySelector(`.films-list__container`);
-  let afterSortFilms = beforeSortFilms.sort((a, b) => {
-    if (Number(a.rating) < Number(b.rating)) {
-      return 1;
-    }
-    if (Number(a.rating) === Number(b.rating)) {
-      return 0;
-    }
-    return -1;
-  });
+  let afterSortFilms = beforeSortFilms.sort((a, b) => b.rating - a.rating);
 
   for (let i = 0; i < DOUBLE_REPEAT; i++) {
     if (Number(afterSortFilms[i].rating) !== 0) {
@@ -82,15 +74,7 @@ const renderBoardFilms = (boardComponent, films) => {
 
   let beforeSortFilmsCommented = films;
   let filmsListExtraContainerElementCommented = filmsListExtElement[1].querySelector(`.films-list__container`);
-  let afterSortFilmsCommented = beforeSortFilmsCommented.sort((a, b) => {
-    if (Number(a.comments) < Number(b.comments)) {
-      return 1;
-    }
-    if (Number(a.comments) === Number(b.comments)) {
-      return 0;
-    }
-    return -1;
-  });
+  let afterSortFilmsCommented = beforeSortFilmsCommented.sort((a, b) => b.comments - a.comments);
 
   for (let i = 0; i < DOUBLE_REPEAT; i++) {
     if (Number(afterSortFilmsCommented[i].comments) !== 0) {
