@@ -1,4 +1,4 @@
-import {createElement} from '../components/utils';
+import AbstractComponent from './abstract-component';
 
 const createFilmDetailsElement = (film) => {
   const {title, rating, duration, img, director, writers, actors, date, country, description, genres, watchlistflag, hystoryflag, favoriteflag} = film;
@@ -183,27 +183,18 @@ const createFilmDetailsElement = (film) => {
 };
 
 
-export default class FilmDetailsElement {
+export default class FilmDetailsElement extends AbstractComponent {
   constructor(film) {
+    super();
+
     this._film = film;
-    this._element = null;
   }
 
   getTemplate() {
     return createFilmDetailsElement(this._film);
   }
 
-  getElement() {
-    if (!this._element) {
-      this._element = createElement(this.getTemplate());
-    }
-
-    return this._element;
+  setClickFilmDetailsHandler(handler) {
+    this.getElement().querySelector(`.film-details__close-btn`).addEventListener(`click`, handler);
   }
-
-  removeElement() {
-    this._element = null;
-  }
-
-
 }
