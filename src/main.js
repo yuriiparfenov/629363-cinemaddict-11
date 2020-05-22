@@ -23,9 +23,6 @@ render(mainElement, new SortList(), RenderPosition.BEFOREEND);
 
 const filmsContainer = new FilmsElementContainer();
 
-// здесь ошибка не рендерит секцию!
-
-
 render(mainElement, filmsContainer, RenderPosition.BEFOREEND); // render Доски фильмов
 
 const pageController = new PageController(filmsContainer);
